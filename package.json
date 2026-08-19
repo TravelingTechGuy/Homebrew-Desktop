@@ -1,0 +1,72 @@
+{
+  "name": "homebrew-desktop-gui",
+  "productName": "Homebrew Desktop",
+  "version": "1.0.0",
+  "description": "Native macOS GUI dashboard for Homebrew packages, casks, taps, services, and system health.",
+  "main": "electron/main.cjs",
+  "type": "module",
+  "homepage": "./",
+  "scripts": {
+    "dev": "tsx server.ts",
+    "build": "vite build && esbuild server.ts --bundle --platform=node --format=cjs --packages=external --sourcemap --outfile=dist/server.cjs",
+    "start": "node dist/server.cjs",
+    "preview": "vite preview",
+    "clean": "rm -rf dist release server.js",
+    "lint": "tsc --noEmit",
+    "setup:electron": "node scripts/setup-electron.cjs",
+    "electron": "node scripts/setup-electron.cjs && electron electron/main.cjs",
+    "electron:dev": "vite build && node scripts/setup-electron.cjs && electron electron/main.cjs",
+    "electron:watch": "concurrently -k \"vite\" \"wait-on tcp:3000 && cross-env ELECTRON_START_URL=http://localhost:3000 electron electron/main.cjs\"",
+    "electron:build": "vite build && electron-builder --mac"
+  },
+  "build": {
+    "appId": "com.homebrew.desktop",
+    "productName": "Homebrew Desktop",
+    "copyright": "Copyright © 2026 Traveling Tech Guy LLC",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "assets/**/*"
+    ],
+    "mac": {
+      "category": "public.app-category.developer-tools",
+      "icon": "assets/icon.icns",
+      "identity": null,
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "hardenedRuntime": false,
+      "gatekeeperAssess": false
+    }
+  },
+  "dependencies": {
+    "@google/genai": "^2.4.0",
+    "@tailwindcss/vite": "^4.1.14",
+    "@vitejs/plugin-react": "^5.0.4",
+    "dotenv": "^17.2.3",
+    "express": "^4.21.2",
+    "lucide-react": "^0.546.0",
+    "motion": "^12.23.24",
+    "react": "^19.0.1",
+    "react-dom": "^19.0.1",
+    "vite": "^6.2.3"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.14.0",
+    "autoprefixer": "^10.4.21",
+    "concurrently": "^9.1.2",
+    "cross-env": "^7.0.3",
+    "electron": "^34.3.0",
+    "electron-builder": "^25.1.8",
+    "esbuild": "^0.25.0",
+    "tailwindcss": "^4.1.14",
+    "tsx": "^4.21.0",
+    "typescript": "~5.8.2",
+    "wait-on": "^8.0.2"
+  }
+}
