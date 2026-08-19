@@ -2,10 +2,16 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "npm install && npm run dev",
+      "name": "Run Electron Dev",
       "type": "node-terminal",
       "request": "launch",
-      "command": "npm install && npm run dev"
+      "command": "npm run electron:dev"
+    },
+    {
+      "name": "Run Web Preview",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "npm run dev"
     }
   ]
 }
